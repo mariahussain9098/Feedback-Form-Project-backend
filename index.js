@@ -79,9 +79,9 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Something broke!', error: err.message });
 });
 
-// Default route
-app.get('/', (req, res) => {
-  res.send("Hello and welcome from index page");
-});
+// // Default route
+// app.get('/', (req, res) => {
+//   res.send("Hello and welcome from index page");
+// });
 
 module.exports = app;
