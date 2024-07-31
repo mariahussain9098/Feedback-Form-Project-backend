@@ -34,8 +34,8 @@
 
 
 
-const express = require('express');
 require('dotenv').config();
+const express = require('express');
 const dbConnect = require('./src/config/dbConnect');
 const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
