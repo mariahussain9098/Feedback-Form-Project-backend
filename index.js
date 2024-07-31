@@ -63,9 +63,9 @@ app.use(express.json());
 dbConnect()
   .then(() => {
     // Route definitions
-    app.get('/', (req, res) => {
-      res.send("Hello from index page");
-    });
+    // app.get('/', (req, res) => {
+    //   res.send("Hello from index page");
+    // });
     app.use('/api/auth', authRoutes);
     app.use('/api/feedback', feedbackRoutes);
     app.use('/api/students', studentRoutes);
