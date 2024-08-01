@@ -70,24 +70,70 @@ const updateStudentDetails = async (req, res) => {
   }
 };
 
+// // Update student password
+// const updateStudentPassword = async (req, res) => {
+//   const { currentPassword, newPassword } = req.body;
+//   try {
+//     const student = await Student.findById(req.user.id);
+
+//     if (!student) {
+//       return res.status(404).json({ message: 'Student not found' });
+//     }
+
+//     const isMatch = await bcrypt.compare(currentPassword, student.password);
+
+//     if (!isMatch) {
+//       return res.status(400).json({ message: 'Current password is incorrect' });
+//     }
+
+//     const hashedPassword = await bcrypt.hash(newPassword, 12);
+//     student.password = hashedPassword;
+//     await student.save();
+
+//     res.json({ message: 'Password updated successfully' });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
+
+// // Delete the authenticated student
+// const deleteStudent = async (req, res) => {
+//   try {
+//     const student = await Student.findByIdAndDelete(req.user.id);
+
+//     if (!student) {
+//       return res.status(404).json({ message: 'Student not found' });
+//     }
+
+//     res.json({ message: 'Student deleted successfully' });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
+
+// module.exports = { createStudent, getStudentDetails, updateStudentDetails, updateStudentPassword, deleteStudent };
+
+
 // Update student password
 const updateStudentPassword = async (req, res) => {
   const { currentPassword, newPassword } = req.body;
+
   try {
-    const student = await Student.findById(req.user.id);
+    const student = await Student.findById(req.user.id); // Ensure req.user.id contains the logged-in student's ID
 
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
 
+    // Check if the current password matches
     const isMatch = await bcrypt.compare(currentPassword, student.password);
-
     if (!isMatch) {
       return res.status(400).json({ message: 'Current password is incorrect' });
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 12);
-    student.password = hashedPassword;
+    // Hash the new password before saving
+    const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+    student.password = hashedNewPassword;
     await student.save();
 
     res.json({ message: 'Password updated successfully' });
@@ -96,19 +142,23 @@ const updateStudentPassword = async (req, res) => {
   }
 };
 
-// Delete the authenticated student
+// Delete a student account
 const deleteStudent = async (req, res) => {
   try {
     const student = await Student.findByIdAndDelete(req.user.id);
-
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
-
-    res.json({ message: 'Student deleted successfully' });
+    res.status(200).json({ message: 'Student account deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
 };
 
-module.exports = { createStudent, getStudentDetails, updateStudentDetails, updateStudentPassword, deleteStudent };
+module.exports = {
+  createStudent,
+  getStudentDetails,
+  updateStudentDetails,
+  updateStudentPassword,
+  deleteStudent,
+};
