@@ -36,8 +36,8 @@
 
 require('dotenv').config();
 const express = require('express');
-const dbConnect = require('./src/config/dbConnect');
 const cors = require('cors');
+const dbConnect = require('./src/config/dbConnect');
 const authRoutes = require('./src/routes/authRoutes');
 const feedbackRoutes = require('./src/routes/feedbackRoutes');
 const studentRoutes = require('./src/routes/studentRoutes');
@@ -47,8 +47,13 @@ const feedbackFormRoutes = require('./src/routes/feedbackFormRoutes');
 
 const app = express();
 
-// Middleware
-app.use(cors());
+const corsConfig = {
+  origin : "*",
+  credential: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}
+
+app.use(cors(corsConfig));
 app.use(express.json());
 
 // Database connection
