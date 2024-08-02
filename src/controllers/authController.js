@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Student = require('../models/Student');
 
-// const loginStudent = async (req, res) => {
 //   const { email, password } = req.body;
 //   try {
 //     const student = await Student.findOne({ email });
@@ -19,8 +18,6 @@ const Student = require('../models/Student');
 //     res.status(500).json({ message: 'Server error' });
 //   }
 // };
-
-
 
 const loginStudent = async (req, res) => {
   const { email, password } = req.body;
