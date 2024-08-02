@@ -47,7 +47,7 @@ const feedbackFormRoutes = require('./src/routes/feedbackFormRoutes');
 
 const app = express();
 
-// app.use(express.json());
+app.use(express.json());
 // const corsConfig = {
 //   origin : "*",
 //   credential: true,
