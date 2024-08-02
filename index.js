@@ -47,16 +47,14 @@ const feedbackFormRoutes = require('./src/routes/feedbackFormRoutes');
 
 const app = express();
 
-// const corsConfig = {
-//   origin : "*",
-//   credential: true,
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-// }
-// app.options("", cors(corsConfig))
-// app.use(cors(corsConfig));
-
-app.use(cors(corsConfig));
 app.use(express.json());
+const corsConfig = {
+  origin : "*",
+  credential: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}
+// app.options("", cors(corsConfig))
+app.use(cors(corsConfig));
 
 // Database connection
 dbConnect()
