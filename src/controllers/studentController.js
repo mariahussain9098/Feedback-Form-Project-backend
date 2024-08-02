@@ -54,19 +54,22 @@ const createStudent = async (req, res) => {
   }
 };
 
-// Get details of the authenticated student
-const getStudentDetails = async (req, res) => {
+// get specific student
+
+const getStudentById = async (req, res) => {
+  const { id } = req.params; // Get the user ID from the request parameters
   try {
-    const student = await Student.findById(req.user.id).select('-password'); // Assuming req.user is set by the protect middleware
+    const student = await Student.findById(id).select('-password'); // Exclude the password from the response
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
     res.json(student);
   } catch (error) {
-    console.error('Error retrieving student details:', error); // Log the error details
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error retrieving student:', error); // Log the error details
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
 
 // Update details of the authenticated student
 const updateStudentDetails = async (req, res) => {
@@ -132,4 +135,4 @@ const deleteStudent = async (req, res) => {
   }
 };
 
-module.exports = { createStudent, getStudentDetails, updateStudentDetails, updateStudentPassword, deleteStudent };
+module.exports = { createStudent, getStudentById, updateStudentDetails, updateStudentPassword, deleteStudent };

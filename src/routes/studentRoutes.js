@@ -1,7 +1,7 @@
 const express = require('express');
 const {
   createStudent,
-  getStudentDetails,
+  getStudentById,
   updateStudentDetails,
   deleteStudent,
   updateStudentPassword 
@@ -13,7 +13,7 @@ const router = express.Router();
 router.post('/', createStudent); // No need for 'protect' middleware for registration
 
 // Route to get the details of the authenticated student
-router.get('/me', protect, getStudentDetails);
+router.get('/:id', protect, getStudentById);
 
 // Route to update the details of the authenticated student
 router.put('/me', protect, updateStudentDetails); // Use 'protect' middleware for authorization
